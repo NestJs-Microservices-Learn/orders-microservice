@@ -24,7 +24,7 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
 
   async onModuleInit() {
     await this.$connect();
-    this.logger.log('Database connected');
+    this.logger.log('PostgreSQL Database connected');
   }
 
   async create(createOrderDto: CreateOrderDto) {
