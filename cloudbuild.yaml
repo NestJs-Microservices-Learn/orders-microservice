@@ -4,7 +4,7 @@ steps:
     args:
       - -c
       - |
-        docker build -t europe-southwest1-docker.pkg.dev/tienda-microservices-430107/tienda-microservices/orders-ms -f dockerfile.prod --platform=linux/amd64 --build-arg ORDERS_DATABASE_URL=$$DATABASE_URL .
+        docker build -t europe-southwest1-docker.pkg.dev/tienda-microservices-430107/tienda-microservices/orders-ms -f dockerfile.prod --platform=linux/amd64 --build-arg ORDERS_DATABASE_URL_PRO=$$DATABASE_URL .
     secretEnv: ['DATABASE_URL']
 
   - name: 'gcr.io/cloud-builders/docker'
