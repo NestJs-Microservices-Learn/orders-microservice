@@ -1,21 +1,23 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
     args:
-      [
-        'build',
-        '-t',
-        'europe-southwest1-docker.pkg.dev/tienda-microservices-430107/tienda-microservices/orders-ms',
-        '-f',
-        'dockerfile.prod',
-        '--platform=linux/amd64',
-        '.',
-      ]
+      - -c
+      - |
+        docker build -t europe-southwest1-docker.pkg.dev/tienda-microservices-430107/tienda-microservices/orders-ms -f dockerfile.prod --platform=linux/amd64 --build-arg ORDERS_DATABASE_URL=$$DATABASE_URL .
+    secretEnv: ['DATABASE_URL']
+
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'push',
         'europe-southwest1-docker.pkg.dev/tienda-microservices-430107/tienda-microservices/orders-ms',
       ]
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/648546198514/secrets/ORDERS_DATABASE_URL_PRO/versions/1
+      env: 'DATABASE_URL'
 
 options:
   logging: CLOUD_LOGGING_ONLY
